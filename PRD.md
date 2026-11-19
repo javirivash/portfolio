@@ -167,7 +167,7 @@ A single-page portfolio website for a frontend engineer, using a **magazine/edit
 - Gentle fade-in and slight slide-up for sections and elements as they enter the viewport
 - Smooth anchor scrolling between sections
 - Light hover interactions on project cards and links
-- Implemented via CSS animations + Intersection Observer or Framer Motion
+- Implemented with CSS only (no animation library)
 
 ### Inline Resume View
 
@@ -202,7 +202,7 @@ A single-page portfolio website for a frontend engineer, using a **magazine/edit
 | ---------- | ----------------------------- |
 | Framework  | React + Next.js (App Router)  |
 | Styling    | Tailwind CSS                  |
-| Animation  | Framer Motion                 |
+| Animation  | CSS only (hover transitions)  |
 | Deployment | Vercel                        |
 | Resume PDF | Static file in /public        |
 | Calendly   | Embed widget or external link |
