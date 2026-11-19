@@ -35,7 +35,7 @@ npm run build     # Successful production build
 
 ### 4. Component Architecture
 
-- **Server Components by default.** Only add `"use client"` when the component needs interactivity (event handlers, Framer Motion, hooks).
+- **Server Components by default.** Only add `"use client"` when the component needs interactivity (event handlers, hooks).
 - **One component per file.** Keep components focused on a single responsibility.
 - **Composition over complexity.** Prefer small, composable pieces over monolithic components.
 
