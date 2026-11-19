@@ -11,6 +11,8 @@ export interface Project {
   stats?: { label: string; value: string }[];
   liveUrl?: string;
   githubUrl?: string;
+  /** Screen recordings shown in a phone frame: the first beside the row, the rest in the case study. */
+  videos?: { src: string; poster: string; label: string }[];
 }
 
 export const projects: Project[] = [

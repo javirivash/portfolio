@@ -1,3 +1,4 @@
+import PhoneVideo from "@/components/ui/PhoneVideo";
 import { projects } from "@/data/projects";
 
 export default function Projects() {
@@ -7,7 +8,10 @@ export default function Projects() {
 
       <div>
         {projects.map((project, projectIndex) => (
-          <article key={project.id} className="jr-fila">
+          <article
+            key={project.id}
+            className={`jr-fila ${project.videos?.length ? "con-lado" : ""}`}
+          >
             <div className="jr-nivel">
               {project.period && (
                 <>
@@ -57,6 +61,13 @@ export default function Projects() {
                     <p className="text-[15px] text-ink-soft">{project.outcome}</p>
                   </div>
                 </div>
+                {project.videos && project.videos.length > 1 && (
+                  <div className="mt-8 flex flex-wrap gap-8">
+                    {project.videos.slice(1).map((video) => (
+                      <PhoneVideo key={video.src} {...video} />
+                    ))}
+                  </div>
+                )}
               </details>
 
               {(project.liveUrl || project.githubUrl) && (
@@ -84,6 +95,8 @@ export default function Projects() {
                 </div>
               )}
             </div>
+
+            {project.videos?.[0] && <PhoneVideo {...project.videos[0]} />}
           </article>
         ))}
       </div>

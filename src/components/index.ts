@@ -6,3 +6,4 @@ export { default as Projects } from "./sections/Projects";
 export { default as Contact } from "./sections/Contact";
 export { default as Resume } from "./sections/Resume";
 export { default as Footer } from "./sections/Footer";
+export { default as PhoneVideo } from "./ui/PhoneVideo";

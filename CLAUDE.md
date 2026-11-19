@@ -122,7 +122,7 @@ One family: Archivo via `next/font/google` with the `wdth` axis (`--font-archivo
 
 ### Components
 
-Shared `jr-` classes live in `globals.css` (same names as the style guide): `.jr-wrap`, `.jr-seccion`, `.jr-fila`, `.jr-nivel`, `.jr-info`, `.jr-cifras`, `.jr-lista`, `.jr-btn` (`.sec`), `.jr-marca`, `.jr-detalle`, `.jr-contacto`. Square corners everywhere, no shadows, no rounded cards.
+Shared `jr-` classes live in `globals.css` (same names as the style guide): `.jr-wrap`, `.jr-seccion`, `.jr-fila`, `.jr-nivel`, `.jr-info`, `.jr-cifras`, `.jr-lista`, `.jr-btn` (`.sec`), `.jr-marca`, `.jr-detalle`, `.jr-contacto`, `.jr-telefono`. Square corners everywhere, no shadows, no rounded cards. The one exception is the phone frame (`.jr-telefono`, `PhoneVideo`) around screen recordings.
 
 ---
 

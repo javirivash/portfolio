@@ -15,6 +15,7 @@
   --mark: #b9dcff;
   --mark-soft: #eef6ff;
   --on-azul: #ffffff;
+  --phone: #111111; /* phone frame bezel only */
 }
 
 @theme inline {
@@ -319,8 +320,33 @@ details.jr-detalle[open] summary::after {
   border-bottom: 2px solid var(--on-azul);
 }
 
+/* Phone frame: the only rounded corners and the only shadow in the system */
+.jr-fila.con-lado {
+  grid-template-columns: 150px minmax(0, 1fr) 230px;
+}
+.jr-telefono {
+  width: 100%;
+  max-width: 230px;
+  justify-self: end;
+  align-self: start;
+  padding: 7px 4px;
+  border-radius: 34px;
+  background: var(--phone);
+  box-shadow: 0 22px 40px -22px rgb(0 0 0 / 0.55);
+}
+.jr-telefono video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 390 / 844;
+  object-fit: contain;
+  border-radius: 28px;
+  background: var(--phone);
+}
+
 @media (max-width: 860px) {
-  .jr-fila {
+  .jr-fila,
+  .jr-fila.con-lado {
     grid-template-columns: minmax(0, 1fr);
     gap: 16px;
   }
@@ -332,5 +358,9 @@ details.jr-detalle[open] summary::after {
   }
   .jr-nivel .n {
     font-size: 48px;
+  }
+  .jr-fila.con-lado .jr-telefono {
+    justify-self: center;
+    max-width: 200px;
   }
 }
