@@ -10,7 +10,7 @@ async function loadArchivo(wdth: number, wght: number, text: string) {
   const url = `https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@${wdth},${wght}&text=${encodeURIComponent(text)}`;
   const css = await (await fetch(url)).text();
   const src = css.match(/src: url\((.+?)\) format\('(opentype|truetype)'\)/);
-  if (!src) throw new Error("Archivo font not found");
+  if (!src) throw new Error(`Archivo font not found in: ${css.slice(0, 300)}`);
   return (await fetch(src[1])).arrayBuffer();
 }
 
@@ -27,8 +27,9 @@ export default async function Image() {
       { name: "Archivo", data: await loadArchivo(100, 700, `Javier Rivas${ROLE}${SITE}`), weight: 700 },
       { name: "Archivo", data: await loadArchivo(100, 400, `${META}${SITE}`), weight: 400 },
     ];
-  } catch {
+  } catch (error) {
     // Fall back to the default font rather than failing the build
+    console.warn("opengraph-image: using the default font.", error);
     fonts = [];
   }
 
@@ -100,6 +101,6 @@ export default async function Image() {
         <div style={{ width: 120, background: "#0a62d0" }} />
       </div>
     ),
-    { ...size, fonts },
+    fonts.length ? { ...size, fonts } : size,
   );
 }
