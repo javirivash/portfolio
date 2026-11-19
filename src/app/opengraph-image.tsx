@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Javier Rivas — Frontend & Full-Stack Engineer, remote from Mexico";
+export const alt = "Javier Rivas — Frontend & Full-Stack Engineer, remote from Mexico. React, Next.js and TypeScript.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -28,15 +28,16 @@ async function loadFont(family: string, wght: number, text: string) {
 
 const NAME = "JAVIER RIVAS";
 const ROLE = "Frontend & Full-Stack Engineer";
-const META = "Remote from Mexico · Open to remote roles";
+const META = "Remote from Mexico · React · Next.js · TypeScript";
+const LABEL = "PORTFOLIO";
 const SITE = "javirivash.dev";
 
 export default async function Image() {
   // Load each instance on its own so one failed request doesn't drop the others.
   const wanted = [
     { name: "Archivo Narrow", weight: 700, text: NAME },
-    { name: "Archivo", weight: 700, text: `Javier Rivas${ROLE}${SITE}` },
-    { name: "Archivo", weight: 400, text: `${META}${SITE}` },
+    { name: "Archivo", weight: 700, text: `${ROLE}${SITE}` },
+    { name: "Archivo", weight: 400, text: `${META}${LABEL}` },
   ] as const;
   const results = await Promise.allSettled(wanted.map((f) => loadFont(f.name, f.weight, f.text)));
   const fonts = results.flatMap((r, i) => {
@@ -77,8 +78,10 @@ export default async function Image() {
               fontSize: 26,
             }}
           >
-            <span style={{ fontWeight: 700 }}>Javier Rivas</span>
-            <span style={{ color: "#64615b", fontWeight: 400 }}>{SITE}</span>
+            <span style={{ fontWeight: 700 }}>{SITE}</span>
+            <span style={{ color: "#64615b", fontWeight: 400, fontSize: 20, letterSpacing: "0.12em" }}>
+              {LABEL}
+            </span>
           </div>
 
           <div style={{ display: "flex", flexDirection: "column" }}>
