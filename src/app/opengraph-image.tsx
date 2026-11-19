@@ -1,30 +1,9 @@
 import { ImageResponse } from "next/og";
+import { loadFont } from "@/lib/loadFont";
 
-export const alt = "Javier Rivas — Frontend & Full-Stack Engineer, remote from Mexico. React, Next.js and TypeScript.";
+export const alt = "Javier Rivas • Frontend & Full-Stack Engineer, remote from Mexico. React, Next.js and TypeScript.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-
-// Satori needs static TTF files, and Google Fonts only serves Archivo's default
-// width that way (a wdth request comes back empty). So the name uses Archivo
-// Narrow, the static condensed cut of the same family.
-async function loadFont(family: string, wght: number, text: string) {
-  const base = `https://fonts.googleapis.com/css2?family=${family.replace(/ /g, "+")}:wght@${wght}`;
-  const candidates = [`${base}&text=${encodeURIComponent(text)}`, base, `${base}&display=swap`];
-  const tried: string[] = [];
-  for (const url of candidates) {
-    const res = await fetch(url, { cache: "force-cache" });
-    const css = await res.text();
-    const src = css.match(/src: url\((.+?)\) format\('(opentype|truetype)'\)/);
-    if (res.ok && src) {
-      const font = await fetch(src[1], { cache: "force-cache" });
-      if (font.ok) return font.arrayBuffer();
-      tried.push(`${url} -> font ${font.status}`);
-      continue;
-    }
-    tried.push(`${url} -> ${res.status} ${css.slice(0, 120).replace(/\s+/g, " ")}`);
-  }
-  throw new Error(`${family} ${wght} not loaded:\n${tried.join("\n")}`);
-}
 
 const NAME = "JAVIER RIVAS";
 const ROLE = "Frontend & Full-Stack Engineer";
