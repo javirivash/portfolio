@@ -4,12 +4,11 @@ export const alt = "Javier Rivas — Frontend & Full-Stack Engineer, remote from
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// Satori can't use the variable width axis, so fetch static Archivo instances
-// (condensed for the name, normal width for text) as TTF at build time.
-// Google Fonts sometimes rejects a request shape, so try a few before giving up.
-async function loadArchivo(wdth: number, wght: number, text: string) {
-  const family = wdth === 100 ? `Archivo:wght@${wght}` : `Archivo:wdth,wght@${wdth},${wght}`;
-  const base = `https://fonts.googleapis.com/css2?family=${family}`;
+// Satori needs static TTF files, and Google Fonts only serves Archivo's default
+// width that way (a wdth request comes back empty). So the name uses Archivo
+// Narrow, the static condensed cut of the same family.
+async function loadFont(family: string, wght: number, text: string) {
+  const base = `https://fonts.googleapis.com/css2?family=${family.replace(/ /g, "+")}:wght@${wght}`;
   const candidates = [`${base}&text=${encodeURIComponent(text)}`, base, `${base}&display=swap`];
   const tried: string[] = [];
   for (const url of candidates) {
@@ -24,7 +23,7 @@ async function loadArchivo(wdth: number, wght: number, text: string) {
     }
     tried.push(`${url} -> ${res.status} ${css.slice(0, 120).replace(/\s+/g, " ")}`);
   }
-  throw new Error(`Archivo ${wdth}/${wght} not loaded:\n${tried.join("\n")}`);
+  throw new Error(`${family} ${wght} not loaded:\n${tried.join("\n")}`);
 }
 
 const NAME = "JAVIER RIVAS";
@@ -35,11 +34,11 @@ const SITE = "javirivash.dev";
 export default async function Image() {
   // Load each instance on its own so one failed request doesn't drop the others.
   const wanted = [
-    { name: "ArchivoCondensed", wdth: 62, weight: 900, text: NAME },
-    { name: "Archivo", wdth: 100, weight: 700, text: `Javier Rivas${ROLE}${SITE}` },
-    { name: "Archivo", wdth: 100, weight: 400, text: `${META}${SITE}` },
+    { name: "Archivo Narrow", weight: 700, text: NAME },
+    { name: "Archivo", weight: 700, text: `Javier Rivas${ROLE}${SITE}` },
+    { name: "Archivo", weight: 400, text: `${META}${SITE}` },
   ] as const;
-  const results = await Promise.allSettled(wanted.map((f) => loadArchivo(f.wdth, f.weight, f.text)));
+  const results = await Promise.allSettled(wanted.map((f) => loadFont(f.name, f.weight, f.text)));
   const fonts = results.flatMap((r, i) => {
     if (r.status === "fulfilled") return [{ name: wanted[i].name, data: r.value, weight: wanted[i].weight }];
     // Fall back to the default font rather than failing the build
@@ -86,9 +85,9 @@ export default async function Image() {
             <div
               style={{
                 display: "flex",
-                fontFamily: "ArchivoCondensed",
-                fontWeight: 900,
-                fontSize: 168,
+                fontFamily: "Archivo Narrow",
+                fontWeight: 700,
+                fontSize: 148,
                 lineHeight: 0.86,
                 letterSpacing: "-0.02em",
               }}
