@@ -8,6 +8,7 @@ export interface Project {
   approach: string;
   outcome: string;
   stack: string[];
+  stats?: { label: string; value: string }[];
   liveUrl?: string;
   githubUrl?: string;
 }
@@ -38,6 +39,11 @@ export const projects: Project[] = [
       "GitHub Actions",
       "Vercel",
     ],
+    stats: [
+      { label: "Merged PRs", value: "353" },
+      { label: "Accounts in production", value: "89" },
+      { label: "Automated tests", value: "~1,090" },
+    ],
     liveUrl: "https://organicnailstepic.com",
   },
   {
@@ -54,6 +60,10 @@ export const projects: Project[] = [
     outcome:
       "Shipped features used by thousands of enterprise customers. Contributed to the Design System library and improved test coverage by migrating 20+ test suites from Jasmine to Jest.",
     stack: ["React", "TypeScript", "JavaScript", "Cypress", "Jest", "Less"],
+    stats: [
+      { label: "Feature projects led", value: "5" },
+      { label: "Test suites migrated to Jest", value: "20+" },
+    ],
   },
   {
     id: "youtubit",
@@ -75,21 +85,22 @@ export const projects: Project[] = [
       "Firebase",
       "YouTube API",
     ],
-    githubUrl: "https://github.com/javirivash", // TODO: Replace with actual repo URL
+    githubUrl: "https://github.com/javirivash/youtubit",
   },
   {
     id: "portfolio-site",
     title: "Portfolio Site",
+    period: "2026",
     description:
-      "This site — an editorial-style portfolio built with Next.js, Tailwind, and Framer Motion.",
-    tags: ["Next.js", "Tailwind CSS", "Framer Motion"],
+      "This site: a portfolio built with Next.js and Tailwind CSS on a shared design system.",
+    tags: ["Next.js", "Tailwind CSS", "Design Systems"],
     context:
-      "A personal portfolio designed to showcase frontend engineering work in a magazine-inspired editorial format, with cursor-driven interactions and smooth scroll animations.",
+      "A personal portfolio that shares one design system with my web services site, so both read as the same brand.",
     approach:
-      "Built with Next.js App Router and Tailwind CSS for styling. Used Framer Motion for scroll-triggered animations and interactive cursor parallax in the hero section. Designed mockups in Google Stitch before implementation.",
+      "Built with the Next.js App Router and Tailwind CSS v4. Design tokens, the Archivo type scale and a small set of components come from one shared style guide.",
     outcome:
-      "A polished, accessible, and performant single-page portfolio with a distinctive editorial aesthetic.",
-    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    githubUrl: "https://github.com/javirivash", // TODO: Replace with actual repo URL
+      "A fast, accessible single-page portfolio that stays consistent with the rest of my sites.",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS"],
+    githubUrl: "https://github.com/javirivash/portfolio",
   },
 ];

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useRef, useState } from "react";
 
 const navLinks = [
   { href: "#about", label: "About" },
@@ -10,173 +10,69 @@ const navLinks = [
   { href: "#resume", label: "Resume" },
 ];
 
-// Types for Framer Motion components
-type MotionDivType = typeof import("framer-motion").motion.div;
-type AnimatePresenceType = typeof import("framer-motion").AnimatePresence;
-
-// Easing curve: smooth acceleration + deceleration
-const EASE = [0.4, 0, 0.2, 1] as const;
-
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const hamburgerRef = useRef<HTMLButtonElement>(null);
-  const [MotionDiv, setMotionDiv] = useState<MotionDivType | null>(null);
-  const [AnimatePresence, setAnimatePresence] =
-    useState<AnimatePresenceType | null>(null);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
-  // Check for reduced motion preference
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mediaQuery.matches);
-
-    const handler = (e: MediaQueryListEvent) =>
-      setPrefersReducedMotion(e.matches);
-    mediaQuery.addEventListener("change", handler);
-    return () => mediaQuery.removeEventListener("change", handler);
-  }, []);
-
-  // Lazy-load Framer Motion only when mobile menu is first opened
-  useEffect(() => {
-    if (mobileOpen && !MotionDiv && !prefersReducedMotion) {
-      import("framer-motion").then((mod) => {
-        setMotionDiv(() => mod.motion.div);
-        setAnimatePresence(() => mod.AnimatePresence);
-      });
-    }
-  }, [mobileOpen, MotionDiv, prefersReducedMotion]);
-
-  const renderMobileMenu = () => {
-    const menuContent = (
-      <div className="flex flex-col px-6 py-6">
-        {navLinks.map((link, index) => {
-          // Staggered links when Framer Motion is available
-          if (MotionDiv && mobileOpen && !prefersReducedMotion) {
-            return (
-              <MotionDiv
-                key={link.href}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.2, delay: 0.1 + index * 0.05, ease: EASE }}
-              >
-                <a
-                  href={link.href}
-                  onClick={() => {
-                    setMobileOpen(false);
-                    hamburgerRef.current?.focus();
-                  }}
-                  className="block py-3 text-base text-charcoal/70 transition-colors hover:text-deep-blue"
-                >
-                  {link.label}
-                </a>
-              </MotionDiv>
-            );
-          }
-
-          return (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => {
-                setMobileOpen(false);
-                hamburgerRef.current?.focus();
-              }}
-              className="block py-3 text-base text-charcoal/70 transition-colors hover:text-deep-blue"
-            >
-              {link.label}
-            </a>
-          );
-        })}
-      </div>
-    );
-
-    // If Framer Motion is loaded and user doesn't prefer reduced motion
-    if (AnimatePresence && MotionDiv && !prefersReducedMotion) {
-      return (
-        <AnimatePresence>
-          {mobileOpen && (
-            <MotionDiv
-              id="mobile-menu"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3, ease: EASE }}
-              className="overflow-hidden border-b border-warm-gray bg-cream md:hidden"
-            >
-              {menuContent}
-            </MotionDiv>
-          )}
-        </AnimatePresence>
-      );
-    }
-
-    // CSS fallback for reduced motion or before Framer Motion loads
-    if (mobileOpen) {
-      return (
-        <div id="mobile-menu" className="overflow-hidden border-b border-warm-gray bg-cream md:hidden">
-          {menuContent}
-        </div>
-      );
-    }
-
-    return null;
+  const closeMenu = () => {
+    setMobileOpen(false);
+    menuButtonRef.current?.focus();
   };
 
   return (
-    <nav className="fixed left-0 right-0 top-0 z-50 border-b border-warm-gray/50 bg-cream/90 backdrop-blur-sm">
-      {/* Skip link */}
+    <nav
+      className="sticky z-50 bg-paper"
+      style={{ top: "env(safe-area-inset-top, 0px)" }}
+    >
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm focus:bg-deep-blue focus:px-4 focus:py-2 focus:text-sm focus:text-cream"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:text-paper"
       >
         Skip to main content
       </a>
 
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-16">
-        <a
-          href="#"
-          aria-label="Javier Rivas — Home"
-          className="font-serif text-xl font-bold tracking-tight text-charcoal"
-        >
-          Javier Rivas
-        </a>
+      <div className="jr-wrap">
+        {/* Firma: name left, role and links right, over a 2px ink rule */}
+        <div className="flex items-baseline justify-between gap-3 border-b-2 border-ink py-4 text-sm">
+          <a href="#" className="text-[17px] font-extrabold no-underline">
+            Javier Rivas
+          </a>
 
-        {/* Desktop links */}
-        <div className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-sm tracking-wide text-charcoal/70 transition-colors hover:text-deep-blue"
-            >
-              {link.label}
-            </a>
-          ))}
+          <div className="hidden items-baseline gap-6 md:flex">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-muted no-underline transition-colors hover:text-ink"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+
+          <button
+            ref={menuButtonRef}
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="border-2 border-ink px-3 py-1 text-sm font-bold md:hidden"
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
+          >
+            {mobileOpen ? "Close" : "Menu"}
+          </button>
         </div>
 
-        {/* Mobile hamburger */}
-        <button
-          ref={hamburgerRef}
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="flex flex-col gap-1.5 rounded-sm focus:outline-2 focus:outline-offset-4 focus:outline-deep-blue md:hidden"
-          aria-label={mobileOpen ? "Close menu" : "Open menu"}
-          aria-expanded={mobileOpen}
-          aria-controls="mobile-menu"
-        >
-          <span
-            className={`block h-0.5 w-6 bg-charcoal transition-all duration-300 ease-in-out ${mobileOpen ? "translate-y-2 rotate-45" : ""}`}
-          />
-          <span
-            className={`block h-0.5 w-6 bg-charcoal transition-all duration-300 ease-in-out ${mobileOpen ? "scale-x-0 opacity-0" : ""}`}
-          />
-          <span
-            className={`block h-0.5 w-6 bg-charcoal transition-all duration-300 ease-in-out ${mobileOpen ? "-translate-y-2 -rotate-45" : ""}`}
-          />
-        </button>
+        {mobileOpen && (
+          <ul id="mobile-menu" className="jr-lista md:hidden" style={{ columns: 1 }}>
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <a href={link.href} onClick={closeMenu} className="block no-underline">
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
-
-      {/* Mobile menu */}
-      {renderMobileMenu()}
     </nav>
   );
 }

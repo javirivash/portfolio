@@ -1,234 +1,91 @@
-"use client";
-
-import { useState, useEffect, useRef } from "react";
-import AnimatedSection from "@/components/ui/AnimatedSection";
 import { projects } from "@/data/projects";
 
-// Types for Framer Motion components
-type MotionDivType = typeof import("framer-motion").motion.div;
-type AnimatePresenceType = typeof import("framer-motion").AnimatePresence;
-
 export default function Projects() {
-  const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [MotionDiv, setMotionDiv] = useState<MotionDivType | null>(null);
-  const [AnimatePresence, setAnimatePresence] =
-    useState<AnimatePresenceType | null>(null);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  // Check for reduced motion preference
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mediaQuery.matches);
-
-    const handler = (e: MediaQueryListEvent) =>
-      setPrefersReducedMotion(e.matches);
-    mediaQuery.addEventListener("change", handler);
-    return () => mediaQuery.removeEventListener("change", handler);
-  }, []);
-
-  // Lazy-load Framer Motion when section is near viewport
-  useEffect(() => {
-    if (prefersReducedMotion) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          import("framer-motion").then((mod) => {
-            setMotionDiv(() => mod.motion.div);
-            setAnimatePresence(() => mod.AnimatePresence);
-          });
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "200px" }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [prefersReducedMotion]);
-
-  const toggleProject = (id: string) => {
-    setExpandedId(expandedId === id ? null : id);
-  };
-
-  // Render expanded content with CSS transitions as fallback
-  const renderExpandedContent = (project: (typeof projects)[0]) => {
-    const content = (
-      <div className="border-t border-warm-gray px-6 py-8 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-          <div>
-            <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-sage">
-              Context
-            </h4>
-            <p className="text-sm leading-relaxed text-charcoal/70">
-              {project.context}
-            </p>
-          </div>
-          <div>
-            <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-sage">
-              Approach
-            </h4>
-            <p className="text-sm leading-relaxed text-charcoal/70">
-              {project.approach}
-            </p>
-          </div>
-        </div>
-
-        <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2">
-          <div>
-            <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-sage">
-              Outcome
-            </h4>
-            <p className="text-sm leading-relaxed text-charcoal/70">
-              {project.outcome}
-            </p>
-          </div>
-          <div>
-            <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-sage">
-              Stack
-            </h4>
-            <div className="flex flex-wrap gap-2">
-              {project.stack.map((tech) => (
-                <span
-                  key={tech}
-                  className="rounded-full bg-deep-blue/10 px-3 py-1 font-mono text-xs text-deep-blue"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-
-            {/* Links */}
-            <div className="mt-6 flex gap-4">
-              {project.liveUrl && (
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-medium text-deep-blue underline underline-offset-4 hover:text-deep-blue/80"
-                >
-                  View Live Site
-                </a>
-              )}
-              {project.githubUrl && (
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-medium text-deep-blue underline underline-offset-4 hover:text-deep-blue/80"
-                >
-                  View Code on GitHub
-                </a>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-
-    // If Framer Motion is loaded and user doesn't prefer reduced motion
-    if (AnimatePresence && MotionDiv && !prefersReducedMotion) {
-      return (
-        <AnimatePresence>
-          {expandedId === project.id && (
-            <MotionDiv
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="overflow-hidden"
-            >
-              {content}
-            </MotionDiv>
-          )}
-        </AnimatePresence>
-      );
-    }
-
-    // CSS fallback for reduced motion or before Framer Motion loads
-    if (expandedId === project.id) {
-      return <div className="overflow-hidden">{content}</div>;
-    }
-
-    return null;
-  };
-
   return (
-    <section ref={sectionRef} id="projects" className="px-6 py-24 lg:px-16">
-      <div className="mx-auto max-w-7xl">
-        <AnimatedSection>
-          <h2 className="font-serif text-4xl font-bold tracking-tight text-charcoal md:text-5xl">
-            Selected
-            <br />
-            Work
-          </h2>
-          <p className="mt-4 max-w-lg text-base text-charcoal/60">
-            A curated collection of projects spanning enterprise platforms,
-            personal tools, and creative explorations.
-          </p>
-        </AnimatedSection>
+    <section id="projects" className="jr-wrap jr-seccion">
+      <h2>Selected work</h2>
 
-        <div className="mt-16 space-y-6">
-          {projects.map((project, index) => (
-            <AnimatedSection key={project.id} delay={index * 0.1}>
-              <div className="rounded-sm border border-warm-gray bg-cream transition-colors hover:border-sage/50">
-                {/* Card header — always visible */}
-                <button
-                  onClick={() => toggleProject(project.id)}
-                  className="flex w-full items-start justify-between gap-4 p-6 text-left lg:p-8"
-                  aria-expanded={expandedId === project.id}
-                  aria-label={`${expandedId === project.id ? "Collapse" : "Expand"} ${project.title} case study`}
-                >
-                  <div className="flex-1">
-                    <h3 className="font-serif text-2xl font-semibold text-charcoal">
-                      {project.title}
-                    </h3>
-                    {project.period && (
-                      <p className="mt-1 font-mono text-xs text-sage">
-                        {project.period}
-                      </p>
-                    )}
-                    <p className="mt-2 text-sm text-charcoal/60">
-                      {project.description}
-                    </p>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded-full bg-warm-gray px-3 py-1 font-mono text-xs text-charcoal/60"
-                        >
-                          {tag}
-                        </span>
-                      ))}
+      <div>
+        {projects.map((project, projectIndex) => (
+          <article key={project.id} className="jr-fila">
+            <div className="jr-nivel">
+              {project.period && (
+                <>
+                  <span className="n">{project.period.match(/\d{4}/)?.[0]}</span>
+                  <span className="t">{project.period}</span>
+                </>
+              )}
+            </div>
+
+            <div className="jr-info">
+              <h3>{project.title}</h3>
+              <p className="jr-para">{project.description}</p>
+
+              {project.stats && (
+                <div className="jr-cifras">
+                  {project.stats.map((stat, statIndex) => (
+                    <div key={stat.label} className="jr-cifra">
+                      <span className="jr-etq">{stat.label}</span>
+                      {/* One highlight per section: the lead figure of the lead project */}
+                      <span
+                        className={`v ${projectIndex === 0 && statIndex === 0 ? "jr-marca" : ""}`}
+                      >
+                        {stat.value}
+                      </span>
                     </div>
-                  </div>
-                  <span
-                    className={`mt-2 text-sage transition-transform ${expandedId === project.id ? "rotate-45" : ""}`}
-                    aria-hidden="true"
-                  >
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                    >
-                      <path d="M12 5v14M5 12h14" />
-                    </svg>
-                  </span>
-                </button>
+                  ))}
+                </div>
+              )}
 
-                {/* Expanded case study */}
-                {renderExpandedContent(project)}
-              </div>
-            </AnimatedSection>
-          ))}
-        </div>
+              <p className="text-sm text-muted">
+                {project.stack.join(" · ")}
+              </p>
+
+              <details className="jr-detalle">
+                <summary>Read the case study</summary>
+                <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3">
+                  <div className="grid content-start gap-2">
+                    <span className="jr-etq">Context</span>
+                    <p className="text-[15px] text-ink-soft">{project.context}</p>
+                  </div>
+                  <div className="grid content-start gap-2">
+                    <span className="jr-etq">Approach</span>
+                    <p className="text-[15px] text-ink-soft">{project.approach}</p>
+                  </div>
+                  <div className="grid content-start gap-2">
+                    <span className="jr-etq">Outcome</span>
+                    <p className="text-[15px] text-ink-soft">{project.outcome}</p>
+                  </div>
+                </div>
+              </details>
+
+              {(project.liveUrl || project.githubUrl) && (
+                <div className="jr-acciones">
+                  {project.liveUrl && (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="jr-btn sec"
+                    >
+                      View live site <span aria-hidden="true">&#8599;</span>
+                    </a>
+                  )}
+                  {project.githubUrl && (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="jr-btn sec"
+                    >
+                      View code on GitHub <span aria-hidden="true">&#8599;</span>
+                    </a>
+                  )}
+                </div>
+              )}
+            </div>
+          </article>
+        ))}
       </div>
     </section>
   );
