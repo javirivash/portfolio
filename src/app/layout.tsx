@@ -37,15 +37,6 @@ export const metadata: Metadata = {
     siteName: "Javier Rivas",
     locale: "en_US",
     type: "website",
-    // TODO: Add social sharing image (recommended: 1200x630px)
-    // images: [
-    //   {
-    //     url: "/og-image.png",
-    //     width: 1200,
-    //     height: 630,
-    //     alt: "Javier Rivas — Frontend & Full-Stack Engineer",
-    //   },
-    // ],
   },
   robots: {
     index: true,
