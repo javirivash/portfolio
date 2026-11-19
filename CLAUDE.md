@@ -6,7 +6,7 @@ This file provides guidance to Claude Code when working with code in this reposi
 
 ## Project Overview
 
-Single-page portfolio site for a frontend engineer. Magazine/editorial style — typography-forward, smart, clean. See `PRD.md` for full requirements and `mockups/` for visual reference.
+Single-page portfolio site for a frontend engineer. It shares one design system with servicios.javirivash.dev: a printed price list look — paper background, rules instead of cards, condensed uppercase Archivo headings, one blue accent. The portfolio uses it in a calmer register (fewer highlights, no pricing devices). Style guide: https://claude.ai/artifact/AVzK5MAiamqRrbpbrHZFHR
 
 ---
 
@@ -90,31 +90,39 @@ chore:    Maintenance tasks, dependency updates
 | Framework  | Next.js (App Router)                            |
 | Language   | TypeScript (strict mode)                        |
 | Styling    | Tailwind CSS                                    |
-| Animation  | Framer Motion                                   |
-| Fonts      | Playfair Display + Inter via `next/font/google` |
+| Fonts      | Archivo (width axis) via `next/font/google`     |
 | Deployment | Vercel                                          |
 
 ---
 
 ## Design Tokens
 
-Use these exact values. They MUST be configured in `tailwind.config.ts` as custom theme extensions.
+Defined once in `src/app/globals.css` (`:root` + `@theme inline`). Use these, nothing else.
 
-| Token       | Value     | Usage                                      |
-| ----------- | --------- | ------------------------------------------ |
-| `cream`     | `#FAFAF5` | Page background                            |
-| `charcoal`  | `#1A1A1A` | Primary text                               |
-| `deep-blue` | `#1E3A5F` | Accent — CTAs, links, interactive elements |
-| `sage`      | `#8B9D8B` | Secondary — muted text, subtle accents     |
-| `warm-gray` | `#EDEAE5` | Dividers, card backgrounds, borders        |
+| Token        | Value     | Usage                                                         |
+| ------------ | --------- | ------------------------------------------------------------- |
+| `paper`      | `#FAFAF7` | Page background                                               |
+| `ink`        | `#151413` | Primary text, 2px rules, primary button                       |
+| `ink-soft`   | `#3A3833` | Supporting paragraphs                                         |
+| `muted`      | `#64615B` | Labels, notes, footer                                         |
+| `rule`       | `#DCD8CE` | 1px dividers between rows and list items (never text)         |
+| `azul`       | `#0A62D0` | The only accent: contact band background, focus ring          |
+| `azul-texto` | `#0753B5` | Small blue text and list dashes                               |
+| `mark`       | `#B9DCFF` | Highlighter behind one key word or figure per section; hovers |
 
 ### Typography
 
-| Role     | Font             | Usage                            |
-| -------- | ---------------- | -------------------------------- |
-| Headings | Playfair Display | Section titles, hero name, serif |
-| Body     | Inter            | Paragraphs, nav, UI text         |
-| Accents  | Monospace        | Tech tags, code references       |
+One family: Archivo via `next/font/google` with the `wdth` axis (`--font-archivo`).
+
+| Role               | Treatment                                                    |
+| ------------------ | ------------------------------------------------------------ |
+| Headings, figures  | 800–900 weight, `font-stretch` 62–72%, uppercase, leading ≤ .92 |
+| Body               | 400 weight, normal width, 1.55 leading, ≤ 60ch               |
+| Labels (`.jr-etq`) | 12px, 600, uppercase, 0.08em tracking, `muted`               |
+
+### Components
+
+Shared `jr-` classes live in `globals.css` (same names as the style guide): `.jr-wrap`, `.jr-seccion`, `.jr-fila`, `.jr-nivel`, `.jr-info`, `.jr-cifras`, `.jr-lista`, `.jr-btn` (`.sec`), `.jr-marca`, `.jr-detalle`, `.jr-contacto`. Square corners everywhere, no shadows, no rounded cards.
 
 ---
 
@@ -197,19 +205,11 @@ Each section component should have an `id` prop matching its anchor name for smo
 
 ```typescript
 // src/components/sections/SectionName.tsx
-import { motion } from 'framer-motion';
-
 export default function SectionName() {
   return (
-    <section id="section-anchor" className="py-24 px-6 lg:px-16">
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-      >
-        {/* Section content */}
-      </motion.div>
+    <section id="section-anchor" className="jr-wrap jr-seccion">
+      <h2>Section title</h2>
+      {/* Section content: rows (.jr-fila), lists (.jr-lista), buttons (.jr-btn) */}
     </section>
   );
 }
@@ -241,17 +241,9 @@ const bio = "Lorem ipsum dolor sit amet...";
 
 ---
 
-## Animation Guidelines
+## Motion
 
-| Interaction       | Approach                                                                |
-| ----------------- | ----------------------------------------------------------------------- |
-| Scroll reveal     | `whileInView` + fade-in + slide-up (12–20px). Use `once: true`.         |
-| Hero parallax     | `useMotionValue` + `useTransform` tracking mouse position.              |
-| Project expansion | `AnimatePresence` + `layout` prop. One expanded at a time.              |
-| Hover states      | Subtle scale (1.02–1.05) or color transition.                           |
-| Transitions       | 0.3s–0.6s duration. `ease` or low-bounce spring.                        |
-| Touch devices     | Disable cursor-driven effects. Fall back to static layout.              |
-| Reduced motion    | Wrap all motion in `prefers-reduced-motion` checks. Respect user prefs. |
+Almost none: color transitions on hover and native `<details>` for case studies. No scroll-reveal or parallax. Respect `prefers-reduced-motion`.
 
 ---
 

@@ -1,16 +1,13 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Archivo } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+// Archivo with its width axis: condensed headings and figures, normal-width text
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
-});
-
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
+  axes: ["wdth"],
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.javirivash.dev";
@@ -62,11 +59,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
-      <body className="antialiased">
-          {children}
-          <Analytics />
-        </body>
+    <html lang="en" className={archivo.variable}>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
