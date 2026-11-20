@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { loadFont } from "@/lib/loadFont";
 
-export const alt = "Javier Rivas • Frontend & Full-Stack Engineer, remote from Mexico. React, Next.js and TypeScript.";
+export const alt = "Javier Rivas · Frontend & Full-Stack Engineer, remote from Mexico. React, Next.js and TypeScript.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
