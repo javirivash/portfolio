@@ -12,7 +12,6 @@ Hello! This is my personal portfolio site.
 
 - Printed price-list design shared with servicios.javirivash.dev: paper background, rules instead of cards, condensed uppercase Archivo
 - Inline expandable project case studies (native `<details>`)
-- Resume shown inline with a PDF download
 - Open Graph image generated at build time
 - Fully responsive (mobile, tablet, desktop)
 - Accessible — semantic HTML, reduced-motion support

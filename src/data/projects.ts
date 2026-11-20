@@ -28,7 +28,7 @@ export const projects: Project[] = [
     approach:
       "Online booking and Stripe Checkout (deposits, full and idempotent balance payments) with seat holds and transactional writes on payment confirmation. A full admin panel for catalog, group and session scheduling with capacity limits, in-person sales, roll call, kit hand-off and a signed per-student MXN ledger. Email (Resend) and WhatsApp (Twilio) reminders from scheduled jobs. Core business rules live in Postgres as transactional PL/pgSQL with Row-Level Security across 29 versioned migrations; money is stored as integer centavos and packages are frozen entitlements.",
     outcome:
-      "Live in production with 89 accounts, 81 packages sold and 406 course bookings. 353 merged PRs, about 1,090 automated tests (704 unit, 387 database integration), CI and a production smoke suite on every PR, and a nightly schema-drift check. Infrastructure under MXN $1,000/month.",
+      "Live in production with 110+ accounts and 475+ course bookings. 375+ merged PRs and 1,000+ automated tests (700+ unit, 380+ database integration). CI and a production smoke suite run on every PR, plus a nightly schema-drift check. Infrastructure under MXN $1,000/month.",
     stack: [
       "Next.js 16",
       "React 19",
@@ -42,9 +42,9 @@ export const projects: Project[] = [
       "Vercel",
     ],
     stats: [
-      { label: "Merged PRs", value: "353" },
-      { label: "Accounts in production", value: "89" },
-      { label: "Automated tests", value: "~1,090" },
+      { label: "Merged PRs", value: "375+" },
+      { label: "Accounts in production", value: "110+" },
+      { label: "Automated tests", value: "1,000+" },
     ],
     liveUrl: "https://organicnailstepic.com",
   },
@@ -58,9 +58,9 @@ export const projects: Project[] = [
     context:
       "DataRobot is an enterprise AI platform used by Fortune 500 companies. The frontend serves a complex, monolithic application with cloud and on-premises deployments.",
     approach:
-      "Led 5 feature projects end-to-end — from technical spec writing through testing and stakeholder sign-off. Managed feature lifecycle using feature flags for controlled rollout. Refactored legacy components during a multi-year UI overhaul.",
+      "Led 5 feature projects end to end, from technical spec writing through testing and stakeholder sign-off. Used feature flags to control each feature's rollout. Refactored legacy components during a multi-year UI overhaul.",
     outcome:
-      "Shipped features used by thousands of enterprise customers. Contributed to the Design System library and improved test coverage by migrating 20+ test suites from Jasmine to Jest.",
+      "Contributed to the Design System library and improved test coverage by migrating 20+ test suites from Jasmine to Jest.",
     stack: ["React", "TypeScript", "JavaScript", "Cypress", "Jest", "Less"],
     stats: [
       { label: "Feature projects led", value: "5" },

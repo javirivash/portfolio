@@ -1,7 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  async redirects() {
+    // The resume section and PDF were removed; keep old links working.
+    return [
+      { source: "/resume.pdf", destination: "/#experience", permanent: false },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -145,7 +145,6 @@ src/
 │   │   ├── SkillsExperience.tsx
 │   │   ├── Projects.tsx
 │   │   ├── Contact.tsx
-│   │   ├── Resume.tsx
 │   │   └── Footer.tsx
 │   ├── ui/               # Shared reusable components
 │   └── index.ts          # Barrel exports
@@ -156,7 +155,6 @@ src/
     └── hooks/            # Custom React hooks
 
 public/
-├── resume.pdf            # Downloadable resume
 └── images/               # Project screenshots, portrait photo
 ```
 
@@ -189,11 +187,11 @@ import Hero from "@/components/sections/Hero";
 
 ### Page Sections
 
-Hero → About → Skills & Experience → Projects → Contact → Resume → Footer
+Hero → About → Skills & Experience → Projects → Contact → Footer
 
 ### Nav Anchors
 
-About, Experience, Projects, Contact, Resume
+About, Experience, Projects, Contact
 
 Each section component should have an `id` prop matching its anchor name for smooth scroll navigation.
 
