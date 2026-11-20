@@ -13,7 +13,7 @@ export default function Hero() {
 
         <div className="grid gap-4">
           <p className="max-w-[42ch] text-[19px] leading-normal text-ink-soft">
-            I build scalable, accessible interfaces with React, TypeScript and
+            I build accessible interfaces with React, TypeScript and
             Next.js. Four years shipping product UI at DataRobot, and today I
             design, build and run a live booking and payments platform on my
             own.

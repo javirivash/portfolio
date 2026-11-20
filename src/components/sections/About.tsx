@@ -19,10 +19,9 @@ export default function About() {
       <div className="grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1fr)_280px]">
         <div className="grid content-start gap-5 text-[17px] text-ink-soft">
           <p className="max-w-[60ch]">
-            I&apos;m a frontend engineer with 4+ years of experience building
-            scalable, accessible user interfaces. I specialize in React,
-            TypeScript and modern frontend tooling, with hands-on experience in
-            design systems, structured release cycles and testing practices.
+            I&apos;m a frontend engineer with 5+ years building accessible user
+            interfaces with React and TypeScript. My work covers design
+            systems, structured release cycles and testing.
           </p>
           <p className="max-w-[60ch]">
             At DataRobot, I progressed from Associate to Frontend Engineer II,
@@ -36,8 +35,7 @@ export default function About() {
             from Mexico.
           </p>
           <p className="max-w-[60ch]">
-            I studied Industrial Engineering at ITESM, which gave me a
-            systems-thinking mindset I bring to every line of code.
+            I studied Industrial Engineering at ITESM.
           </p>
 
           <div className="mt-2 grid gap-3">

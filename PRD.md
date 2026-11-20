@@ -11,7 +11,6 @@ A single-page portfolio website for a frontend engineer, using a **magazine/edit
 - Present professional identity, skills, and work in a polished editorial format
 - Provide a memorable first impression through an interactive, cursor-driven hero
 - Make it easy for recruiters, collaborators, and peers to understand expertise and get in touch
-- Offer an inline resume view with download option
 
 ---
 
@@ -32,8 +31,7 @@ A single-page portfolio website for a frontend engineer, using a **magazine/edit
 ### Navigation Bar (sticky)
 
 - Name or logo mark (scrolls to top on click)
-- Anchor links: About, Experience, Projects, Contact, Resume
-- "View Resumé" button styled as a CTA (scrolls to Resume section)
+- Anchor links: About, Experience, Projects, Contact
 - Collapses to hamburger menu on mobile
 
 ---
@@ -102,18 +100,6 @@ A single-page portfolio website for a frontend engineer, using a **magazine/edit
 
 ---
 
-### Section 6 — Resume
-
-**Purpose:** Let visitors view the full resume without downloading.
-
-- **Layout:** Full-width section, centered PDF embed
-- **Content:** Single-page resume PDF displayed inline (rendered via embedded viewer or image fallback)
-- **Download button:** Prominent "Download PDF" button next to or below the resume
-- **Placement:** Last content section before the footer
-- **Note:** The hero CTA "View Resumé" and the nav "Resume" link both scroll to this section
-
----
-
 ### Footer
 
 - Copyright notice
@@ -169,14 +155,6 @@ A single-page portfolio website for a frontend engineer, using a **magazine/edit
 - Light hover interactions on project cards and links
 - Implemented with CSS only (no animation library)
 
-### Inline Resume View
-
-- Resume section near the bottom of the page displays the PDF inline
-- "View Resumé" CTA in both the hero and nav scrolls to this section
-- "Download PDF" button alongside the inline view for offline access
-- PDF rendered via embedded viewer or high-quality image fallback
-- Button styled distinctly from navigation links (outlined or filled accent color)
-
 ### Inline Project Expansion
 
 - Clicking a project card smoothly expands it to reveal case study content
@@ -204,7 +182,6 @@ A single-page portfolio website for a frontend engineer, using a **magazine/edit
 | Styling    | Tailwind CSS                  |
 | Animation  | CSS only (hover transitions)  |
 | Deployment | Vercel                        |
-| Resume PDF | Static file in /public        |
 | Calendly   | Embed widget or external link |
 
 ---

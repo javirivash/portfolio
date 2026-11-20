@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "Javier Rivas • Frontend & Full-Stack Engineer",
   description:
-    "Frontend & Full-Stack Engineer with 4+ years of experience building scalable, accessible user interfaces with React, TypeScript and Next.js. Remote from Mexico.",
+    "Frontend & Full-Stack Engineer with 5+ years building accessible user interfaces with React, TypeScript and Next.js. Remote from Mexico.",
   keywords: [
     "Frontend Engineer",
     "Full-Stack Engineer",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Javier Rivas • Frontend & Full-Stack Engineer",
     description:
-      "Frontend & Full-Stack Engineer with 4+ years of experience building scalable, accessible user interfaces. Remote from Mexico.",
+      "Frontend & Full-Stack Engineer with 5+ years building accessible user interfaces with React, TypeScript and Next.js. Remote from Mexico.",
     url: siteUrl,
     siteName: "Javier Rivas",
     locale: "en_US",

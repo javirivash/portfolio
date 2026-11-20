@@ -4,5 +4,4 @@ export { default as About } from "./sections/About";
 export { default as SkillsExperience } from "./sections/SkillsExperience";
 export { default as Projects } from "./sections/Projects";
 export { default as Contact } from "./sections/Contact";
-export { default as Resume } from "./sections/Resume";
 export { default as Footer } from "./sections/Footer";
