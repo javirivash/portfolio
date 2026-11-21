@@ -195,6 +195,33 @@ h3 {
   text-transform: uppercase;
   letter-spacing: -0.01em;
 }
+/* Several roles at one company, under one company heading */
+.jr-puestos {
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+}
+.jr-puestos > li {
+  display: grid;
+  gap: 6px;
+  padding-block: 16px;
+  border-top: 1px solid var(--rule);
+}
+.jr-puestos > li:last-child {
+  padding-bottom: 0;
+}
+.jr-puestos h4 {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1;
+  font-weight: 800;
+  font-stretch: 72%;
+  text-transform: uppercase;
+}
+.jr-puestos .jr-para {
+  margin-top: 4px;
+}
 .jr-para {
   font-size: 17px;
   color: var(--ink-soft);
