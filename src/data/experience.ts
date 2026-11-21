@@ -1,44 +1,63 @@
-export interface Experience {
-  company: string;
-  role: string;
+export interface Role {
+  title: string;
+  /** Shown only when a company has more than one role. */
   period: string;
   description: string;
+}
+
+export interface Experience {
+  company: string;
+  period: string;
+  roles: Role[];
 }
 
 export const experience: Experience[] = [
   {
     company: "Organic Nails",
-    role: "Freelance Full-Stack Engineer",
     period: "2026 – Present",
-    description:
-      "Sole developer of a live course-booking and studio-management platform (Next.js, Supabase, Stripe). Built booking and payments, an admin panel and automated email and WhatsApp reminders.",
+    roles: [
+      {
+        title: "Freelance Full-Stack Engineer",
+        period: "2026 – Present",
+        description:
+          "Sole developer of a live course-booking and studio-management platform (Next.js, Supabase, Stripe). Built booking and payments, an admin panel and automated email and WhatsApp reminders.",
+      },
+    ],
   },
   {
     company: "DataRobot",
-    role: "Frontend Engineer II",
-    period: "2024 – 2025",
-    description:
-      "Built and shipped production-scale UI features using React, JS and TS on a monolithic AI platform. Owned 5 feature projects from planning to release as Project Lead.",
-  },
-  {
-    company: "DataRobot",
-    role: "Frontend Engineer",
-    period: "2023 – 2024",
-    description:
-      "Built Cypress E2E tests, refactored legacy components during a multi-year UI overhaul, and contributed to the Design System library.",
-  },
-  {
-    company: "DataRobot",
-    role: "Associate Frontend Engineer",
-    period: "2021 – 2023",
-    description:
-      "Migrated 20+ test suites from Jasmine to Jest. Balanced critical fixes and bug backlog alongside feature development.",
+    period: "2021 – 2025",
+    roles: [
+      {
+        title: "Frontend Engineer II",
+        period: "2024 – 2025",
+        description:
+          "Built and shipped production-scale UI features using React, JS and TS on a monolithic AI platform. Owned 5 feature projects from planning to release as Project Lead.",
+      },
+      {
+        title: "Frontend Engineer",
+        period: "2023 – 2024",
+        description:
+          "Built Cypress E2E tests, refactored legacy components during a multi-year UI overhaul, and contributed to the Design System library.",
+      },
+      {
+        title: "Associate Frontend Engineer",
+        period: "2021 – 2023",
+        description:
+          "Migrated 20+ test suites from Jasmine to Jest. Balanced critical fixes and bug backlog alongside feature development.",
+      },
+    ],
   },
   {
     company: "Flex",
-    role: "Program Administrator",
     period: "2019 – 2020",
-    description:
-      "Coordinated cross-functional teams in manufacturing operations to deliver objectives under tight deadlines.",
+    roles: [
+      {
+        title: "Program Administrator",
+        period: "2019 – 2020",
+        description:
+          "Coordinated cross-functional teams in manufacturing operations to deliver objectives under tight deadlines.",
+      },
+    ],
   },
 ];

@@ -1,3 +1,4 @@
+import Period from "@/components/ui/Period";
 import PhoneVideo from "@/components/ui/PhoneVideo";
 import { projects } from "@/data/projects";
 
@@ -12,14 +13,7 @@ export default function Projects() {
             key={project.id}
             className={`jr-fila ${project.videos?.length ? "con-lado" : ""}`}
           >
-            <div className="jr-nivel">
-              {project.period && (
-                <>
-                  <span className="n">{project.period.match(/\d{4}/)?.[0]}</span>
-                  <span className="t">{project.period}</span>
-                </>
-              )}
-            </div>
+            <Period period={project.period} />
 
             <div className="jr-info">
               <h3>{project.title}</h3>

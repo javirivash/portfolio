@@ -35,7 +35,7 @@ export default function About() {
             from Mexico.
           </p>
           <p className="max-w-[60ch]">
-            I studied Industrial Engineering at ITESM.
+            I studied Industrial Engineering at Tecnológico de Monterrey.
           </p>
 
           <div className="mt-2 grid gap-3">

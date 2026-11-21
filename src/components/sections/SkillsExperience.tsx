@@ -1,3 +1,4 @@
+import Period from "@/components/ui/Period";
 import { skills } from "@/data/skills";
 import { experience } from "@/data/experience";
 
@@ -8,15 +9,26 @@ export default function SkillsExperience() {
 
       <ol className="m-0 list-none p-0">
         {experience.map((job) => (
-          <li key={`${job.company}-${job.role}`} className="jr-fila">
-            <div className="jr-nivel">
-              <span className="n">{job.period.split(" ")[0]}</span>
-              <span className="t">{job.period}</span>
-            </div>
+          <li key={job.company} className="jr-fila">
+            <Period period={job.period} />
             <div className="jr-info gap-3">
-              <span className="jr-etq">{job.role}</span>
+              {job.roles.length === 1 && (
+                <span className="jr-etq">{job.roles[0].title}</span>
+              )}
               <h3>{job.company}</h3>
-              <p className="jr-para">{job.description}</p>
+              {job.roles.length === 1 ? (
+                <p className="jr-para">{job.roles[0].description}</p>
+              ) : (
+                <ol className="jr-puestos">
+                  {job.roles.map((role) => (
+                    <li key={role.title}>
+                      <h4>{role.title}</h4>
+                      <span className="jr-etq">{role.period}</span>
+                      <p className="jr-para">{role.description}</p>
+                    </li>
+                  ))}
+                </ol>
+              )}
             </div>
           </li>
         ))}
