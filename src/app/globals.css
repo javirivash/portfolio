@@ -254,6 +254,7 @@ details.jr-detalle summary {
   gap: 10px;
   font-weight: 700;
   font-size: 15px;
+  line-height: 1.2;
   padding: 12px 20px;
   border: 2px solid var(--ink);
 }
@@ -266,7 +267,13 @@ details.jr-detalle summary::-webkit-details-marker {
 details.jr-detalle summary::after {
   content: "+";
   font-size: 20px;
-  line-height: 1;
+  line-height: 18px; /* the text's line box, so it matches .jr-btn's height */
+}
+/* Project rows: the case-study toggle and the link buttons share one size */
+.jr-fila .jr-btn,
+.jr-fila details.jr-detalle summary {
+  min-width: 230px;
+  justify-content: space-between;
 }
 details.jr-detalle[open] summary::after {
   content: "−";

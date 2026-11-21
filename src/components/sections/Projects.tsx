@@ -45,24 +45,6 @@ export default function Projects() {
                 {project.stack.join(" · ")}
               </p>
 
-              <details className="jr-detalle">
-                <summary>Read the case study</summary>
-                <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3">
-                  <div className="grid content-start gap-2">
-                    <span className="jr-etq">Context</span>
-                    <p className="text-[15px] text-ink-soft">{project.context}</p>
-                  </div>
-                  <div className="grid content-start gap-2">
-                    <span className="jr-etq">Approach</span>
-                    <p className="text-[15px] text-ink-soft">{project.approach}</p>
-                  </div>
-                  <div className="grid content-start gap-2">
-                    <span className="jr-etq">Outcome</span>
-                    <p className="text-[15px] text-ink-soft">{project.outcome}</p>
-                  </div>
-                </div>
-              </details>
-
               {(project.liveUrl || project.githubUrl) && (
                 <div className="jr-acciones">
                   {project.liveUrl && (
@@ -87,6 +69,24 @@ export default function Projects() {
                   )}
                 </div>
               )}
+
+              <details className="jr-detalle">
+                <summary>Read the case study</summary>
+                <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3">
+                  <div className="grid content-start gap-2">
+                    <span className="jr-etq">Context</span>
+                    <p className="text-[15px] text-ink-soft">{project.context}</p>
+                  </div>
+                  <div className="grid content-start gap-2">
+                    <span className="jr-etq">Approach</span>
+                    <p className="text-[15px] text-ink-soft">{project.approach}</p>
+                  </div>
+                  <div className="grid content-start gap-2">
+                    <span className="jr-etq">Outcome</span>
+                    <p className="text-[15px] text-ink-soft">{project.outcome}</p>
+                  </div>
+                </div>
+              </details>
             </div>
 
             {project.videos?.length ? <PhoneVideo clips={project.videos} /> : null}
