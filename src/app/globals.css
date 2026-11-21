@@ -326,7 +326,7 @@ details.jr-detalle[open] summary::after {
 }
 /* The recordings are 390 x 844 pt, the iPhone 12-14 screen, whose display
    corner radius is 47.33 pt. The screen radius scales with the frame's real
-   width (container units), the border is an even 2.5px, and the outer radius
+   width (container units), the border is an even 3px, and the outer radius
    is screen radius plus border, so both curves stay concentric. */
 .jr-telefono-bloque {
   container-type: inline-size;
@@ -339,7 +339,7 @@ details.jr-detalle[open] summary::after {
   gap: 14px;
 }
 .jr-telefono {
-  --tel-bisel: 2.5px;
+  --tel-bisel: 3px;
   --tel-radio: calc((100cqw - 2 * var(--tel-bisel)) * 47.33 / 390);
   padding: var(--tel-bisel);
   border-radius: calc(var(--tel-radio) + var(--tel-bisel));
