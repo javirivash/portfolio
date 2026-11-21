@@ -16,7 +16,6 @@
   --mark-soft: #eef6ff;
   --on-azul: #ffffff;
   --phone: #111111; /* phone frame bezel only */
-  --phone-canto: #48484a; /* phone frame metal edge only */
 }
 
 @theme inline {
@@ -321,12 +320,16 @@ details.jr-detalle[open] summary::after {
   border-bottom: 2px solid var(--on-azul);
 }
 
-/* Phone frame around screen recordings. The screen is 390 x 844 pt (iPhone
-   14/15) with Apple's 47.33 pt display corner radius, scaled to the frame
-   width. The black border is about 1.7 mm on a 65 mm wide screen, so 2.5% of
-   the frame width, even on all sides, plus a thin metal edge. The outer
-   radius is screen radius plus border, so both curves stay concentric. */
+/* Phone frame: the only rounded corners and the only shadow in the system */
+.jr-fila.con-lado {
+  grid-template-columns: 150px minmax(0, 1fr) 230px;
+}
+/* The recordings are 390 x 844 pt, the iPhone 12-14 screen, whose display
+   corner radius is 47.33 pt. The screen radius scales with the frame's real
+   width (container units), the border is an even 2.5px, and the outer radius
+   is screen radius plus border, so both curves stay concentric. */
 .jr-telefono-bloque {
+  container-type: inline-size;
   --tel-ancho: 230px;
   width: var(--tel-ancho);
   max-width: 100%;
@@ -336,14 +339,12 @@ details.jr-detalle[open] summary::after {
   gap: 14px;
 }
 .jr-telefono {
-  --tel-bisel: calc(var(--tel-ancho) * 0.025);
-  --tel-radio: calc((var(--tel-ancho) - 2 * var(--tel-bisel)) * 47.33 / 390);
+  --tel-bisel: 2.5px;
+  --tel-radio: calc((100cqw - 2 * var(--tel-bisel)) * 47.33 / 390);
   padding: var(--tel-bisel);
   border-radius: calc(var(--tel-radio) + var(--tel-bisel));
   background: var(--phone);
-  box-shadow:
-    0 0 0 1.5px var(--phone-canto),
-    0 22px 40px -22px rgb(0 0 0 / 0.55);
+  box-shadow: 0 22px 40px -22px rgb(0 0 0 / 0.55);
 }
 .jr-telefono-pantalla {
   overflow: hidden;
