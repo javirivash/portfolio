@@ -11,6 +11,8 @@ export interface Project {
   stats?: { label: string; value: string }[];
   liveUrl?: string;
   githubUrl?: string;
+  /** Screen recordings played one after another in a phone frame beside the row. */
+  videos?: { src: string; poster: string; title: string; label: string }[];
 }
 
 export const projects: Project[] = [
@@ -45,6 +47,22 @@ export const projects: Project[] = [
       { label: "Automated tests", value: "1,000+" },
     ],
     liveUrl: "https://organicnailstepic.com",
+    videos: [
+      {
+        src: "/videos/organic-nails-reserva.mp4",
+        poster: "/videos/organic-nails-reserva.jpg",
+        title: "Booking",
+        label:
+          "Screen recording on a phone: a student picks a course package, signs in, chooses a group and reaches the payment step.",
+      },
+      {
+        src: "/videos/organic-nails-panel.mp4",
+        poster: "/videos/organic-nails-panel.jpg",
+        title: "Admin panel",
+        label:
+          "Screen recording of the admin panel on a phone: today's sessions, roll call, a student's account with her balance, and the calendar.",
+      },
+    ],
   },
   {
     id: "datarobot-platform",
