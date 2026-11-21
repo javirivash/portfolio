@@ -51,17 +51,19 @@ export default function PhoneVideo({ src, poster, label }: PhoneVideoProps) {
 
   return (
     <div className="jr-telefono">
-      <video
-        ref={ref}
-        poster={poster}
-        muted
-        loop
-        playsInline
-        preload="none"
-        aria-label={label}
-        width={390}
-        height={844}
-      />
+      <div className="jr-telefono-pantalla">
+        <video
+          ref={ref}
+          poster={poster}
+          muted
+          loop
+          playsInline
+          preload="none"
+          aria-label={label}
+          width={390}
+          height={844}
+        />
+      </div>
     </div>
   );
 }

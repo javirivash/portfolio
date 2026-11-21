@@ -324,24 +324,35 @@ details.jr-detalle[open] summary::after {
 .jr-fila.con-lado {
   grid-template-columns: 150px minmax(0, 1fr) 230px;
 }
+/* Phone frame around screen recordings. The screen is 390 x 844 pt (iPhone
+   14/15) with Apple's 47.33 pt display corner radius, scaled to the frame
+   width. The bezel is even on all sides and the outer radius is the screen
+   radius plus the bezel, so both curves stay concentric. */
 .jr-telefono {
-  width: 100%;
-  max-width: 230px;
+  --tel-ancho: 230px;
+  --tel-bisel: 8px;
+  --tel-radio: calc((var(--tel-ancho) - 2 * var(--tel-bisel)) * 47.33 / 390);
+  width: var(--tel-ancho);
+  max-width: 100%;
   justify-self: end;
   align-self: start;
-  padding: 7px 4px;
-  border-radius: 34px;
+  padding: var(--tel-bisel);
+  border-radius: calc(var(--tel-radio) + var(--tel-bisel));
   background: var(--phone);
   box-shadow: 0 22px 40px -22px rgb(0 0 0 / 0.55);
+}
+.jr-telefono-pantalla {
+  overflow: hidden;
+  border-radius: var(--tel-radio);
+  aspect-ratio: 390 / 844;
+  background: var(--phone);
+  isolation: isolate;
 }
 .jr-telefono video {
   display: block;
   width: 100%;
-  height: auto;
-  aspect-ratio: 390 / 844;
-  object-fit: contain;
-  border-radius: 28px;
-  background: var(--phone);
+  height: 100%;
+  object-fit: cover;
 }
 
 @media (max-width: 860px) {
@@ -360,7 +371,8 @@ details.jr-detalle[open] summary::after {
     font-size: 48px;
   }
   .jr-fila.con-lado .jr-telefono {
+    --tel-ancho: 200px;
+    --tel-bisel: 7px;
     justify-self: center;
-    max-width: 200px;
   }
 }
